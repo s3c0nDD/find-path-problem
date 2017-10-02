@@ -40,7 +40,6 @@ export default class {
             const stack = [];
             const visited = [];
             let node;
-            const pretty = JSON.stringify;
 
             stack.push(current);
             visited[current.id] = true;
@@ -53,28 +52,13 @@ export default class {
                 }
 
                 const accesibleNodes = node.accesible || [];
-                console.log(
-                    'STACK', pretty(stack),
-                    'NODE', pretty(node),
-                );
                 for (let i = 0; i < accesibleNodes.length; i += 1) {
                     const accesibleNextNode = node.accesible[i];
-                    console.log(
-                        'accesibleNextNode', accesibleNextNode,
-                        '\nwe can go there:', node.accesible.includes(accesibleNextNode),
-                        '\nalready visited:', !!visited[accesibleNextNode.id]
-                    );
                     if (node.accesible.includes(accesibleNextNode) && !visited[accesibleNextNode.id]) {
                         stack.push(find(points, { 'id': accesibleNextNode.id }));
                         visited[accesibleNextNode.id] = true;
-                        console.log('\ni got into!');
-                        console.log(
-                            'STACK', pretty(stack),
-                            '\nVISITED', pretty(visited)
-                        );
                     }
                 }
-                console.log('\n');
             }
 
             return false;
@@ -83,8 +67,8 @@ export default class {
         const addIds = circles => circles.map((circle, id) => ({ ...circle, id }));
         const points = this.findAvailableRoads(addIds(circles));
 
-        points.map(point => console.log(point)); //debug
-        console.log('------- end data --------');
+        // points.map(point => console.log(point)); //debug
+        // console.log('------- end data --------');
 
         const startCircle = this.findNearestCircle(start.x, start.y, points);
         const endCircle = this.findNearestCircle(end.x, end.y, points);
