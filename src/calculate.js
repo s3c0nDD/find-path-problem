@@ -10,7 +10,6 @@ export default class {
 
     static isPointInCircle(pointX, pointY, x, y, r) {
         const { distance, isLessOrSame } = this;
-
         return isLessOrSame(distance(pointX, pointY, x, y), r);
     }
 

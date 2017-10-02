@@ -21,4 +21,13 @@ export default class {
             return point;
         })
     }
+
+    static findNearestCircle(x, y, circles) {
+        return circles.reduce((nearest, circle) => {
+            const distanceNearest = Calc.distance(x, y, nearest.x, nearest.y);
+            const distance = Calc.distance(x, y, circle.x, circle.y);
+            const isNewNearest = distance < distanceNearest && distance <= circle.r;
+            return isNewNearest ? circle : nearest;
+        }, circles[0]);
+    }
 }
