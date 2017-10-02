@@ -1,5 +1,6 @@
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
+import find from 'lodash/find';
 
 import Calc from './calculate';
 
@@ -22,12 +23,72 @@ export default class {
         })
     }
 
+    // this func is not idiot resistant, do not check if the first circle is correct
     static findNearestCircle(x, y, circles) {
         return circles.reduce((nearest, circle) => {
             const distanceNearest = Calc.distance(x, y, nearest.x, nearest.y);
             const distance = Calc.distance(x, y, circle.x, circle.y);
             const isNewNearest = distance < distanceNearest && distance <= circle.r;
             return isNewNearest ? circle : nearest;
-        }, circles[0]);
+        }, { x: Number.MAX_VALUE, y: Number.MAX_VALUE });
+    }
+
+
+
+    static programAlgorithm(start, end, circles) {
+        const hasPath = (points, current, end) => {
+            const stack = [];
+            const visited = [];
+            let node;
+            const pretty = JSON.stringify;
+
+            stack.push(current);
+            visited[current.id] = true;
+
+            while (stack.length) {
+                node = stack.pop();
+
+                if (isEqual(node, end)) {
+                    return true;
+                }
+
+                const accesibleNodes = node.accesible || [];
+                console.log(
+                    'STACK', pretty(stack),
+                    'NODE', pretty(node),
+                );
+                for (let i = 0; i < accesibleNodes.length; i += 1) {
+                    const accesibleNextNode = node.accesible[i];
+                    console.log(
+                        'accesibleNextNode', accesibleNextNode,
+                        '\nwe can go there:', node.accesible.includes(accesibleNextNode),
+                        '\nalready visited:', !!visited[accesibleNextNode.id]
+                    );
+                    if (node.accesible.includes(accesibleNextNode) && !visited[accesibleNextNode.id]) {
+                        stack.push(find(points, { 'id': accesibleNextNode.id }));
+                        visited[accesibleNextNode.id] = true;
+                        console.log('\ni got into!');
+                        console.log(
+                            'STACK', pretty(stack),
+                            '\nVISITED', pretty(visited)
+                        );
+                    }
+                }
+                console.log('\n');
+            }
+
+            return false;
+        };
+
+        const addIds = circles => circles.map((circle, id) => ({ ...circle, id }));
+        const points = this.findAvailableRoads(addIds(circles));
+
+        points.map(point => console.log(point)); //debug
+        console.log('------- end data --------');
+
+        const startCircle = this.findNearestCircle(start.x, start.y, points);
+        const endCircle = this.findNearestCircle(end.x, end.y, points);
+
+        return hasPath(points, startCircle, endCircle);
     }
 }

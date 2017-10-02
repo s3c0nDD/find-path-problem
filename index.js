@@ -8,9 +8,9 @@ import Alg from './src/algorithm';
 
     function start() {
         print('=========== APP ===========\n');
-        const points = data().points;
+        const { start, end, points } = data();
 
-        print(JSON.stringify(Alg.findAvailableRoads(points), null, 2));
+        print(Alg.programAlgorithm(start, end, points));
     }
 
 })();
