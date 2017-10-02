@@ -1,6 +1,4 @@
-import Calc from './src/calculate';
-import Alg from './src/algorithm';
-import data from './src/example_data';
+import Calc from './calculate';
 
 test('distance from 0,0 to 0,5 should return 5', () => {
     expect(Calc.distance(0, 0, 0, 5)).toBe(5);
@@ -64,22 +62,4 @@ test('circles 12,19 r=4 and 8,17 r=3 should be sticky', () => {
 
 test('circles 12,19 r=4 and 19,11 r=4 should NOT be sticky', () => {
     expect(Calc.areCirclesSticky(12,19,19,11,4,3)).toBe(false);
-});
-
-const { start, end, points } = data();
-
-test('with example data it should find nearest circle for start point', () => {
-    expect(Alg.findNearestCircle(start.x, start.y, points)).toBe(points[5]);
-});
-
-test('with example data it should find nearest circle for end point', () => {
-    expect(Alg.findNearestCircle(end.x, end.y, points)).toBe(points[3]);
-});
-
-test('with example data it should find path', () => {
-    expect(Alg.programAlgorithm(start, end, points)).toBe(true);
-});
-
-test('with example data it should not find path if we start from disconnected circle', () => {
-    expect(Alg.programAlgorithm(points[2], end, points)).toBe(false);
 });
