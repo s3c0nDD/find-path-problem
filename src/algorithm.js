@@ -23,7 +23,7 @@ export default class {
         })
     }
 
-    // this func is not idiot resistant, do not check if the first circle is correct
+    // this func is not idiot resistant, does not check if the first circle is correct
     static findNearestCircle(x, y, circles) {
         return circles.reduce((nearest, circle) => {
             const distanceNearest = Calc.distance(x, y, nearest.x, nearest.y);
