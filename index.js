@@ -1,16 +1,16 @@
 import data from './src/example_data';
 import Calc from './src/calculate';
+import Alg from './src/algorithm';
 
-const print = (text) => console.log(text);
-start();
+(function () {
+    const print = console.log;
+    start();
 
-function start() {
-    print('=========== APP ===========\n');
-    // print(Calc.distance(0, 0, 4, 5));
-    // print(Calc.isLessOrSame(5,4));
-    // print(Calc.isLessOrSame(4,4));
-    // print(Calc.isLessOrSame(3,4));
-    print(Calc.isPointInCircle(0, 0, 4, 5, 4));
-    print(Calc.isPointInCircle(0, 0, 4, 5, 3));
-    print(Calc.isPointInCircle(0, 0, 4, 5, 2));
-}
+    function start() {
+        print('=========== APP ===========\n');
+        const points = data().points;
+
+        print(JSON.stringify(Alg.findAvailableRoads(points), null, 2));
+    }
+
+})();

@@ -11,32 +11,32 @@ export default () => ({
         {
             x: 6,
             y: 11,
-            power: 4
+            r: 4
         },
         {
             x: 8,
             y: 17,
-            power: 3
+            r: 3
         },
         {
             x: 19,
             y: 19,
-            power: 2
+            r: 2
         },
         {
             x: 19,
             y: 11,
-            power: 4
+            r: 4
         },
         {
             x: 15,
             y: 7,
-            power: 6
+            r: 6
         },
         {
             x: 12,
             y: 19,
-            power: 4
+            r: 4
         }
     ]
 })
